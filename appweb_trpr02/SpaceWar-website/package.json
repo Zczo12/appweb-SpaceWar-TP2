@@ -19,6 +19,9 @@
     "vitest": "^1.4.0"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "@vitejs/plugin-vue": "^5.0.4",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
   }
 }
