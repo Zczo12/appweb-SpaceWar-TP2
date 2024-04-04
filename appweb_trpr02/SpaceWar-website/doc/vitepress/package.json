@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "docs:Hub-dev": "vitepress dev revue_code_Hub",
+    "docs:Hub-build": "vitepress build revue_code_Hub",
+    "docs:Hub-preview": "vitepress preview revue_code_Hub",
+    "docs:JT-dev": "vitepress dev revue_code_JT",
+    "docs:JT-build": "vitepress build revue_code_JT",
+    "docs:JT-preview": "vitepress preview revue_code_JT"
+  }
+}
