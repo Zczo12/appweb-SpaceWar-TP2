@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 //import { RouterLink, RouterView } from 'vue-router'
 import Acceuil from './component/Acceuil.vue';
+import Leaderboard from './component/Leaderboard.vue';
 
 /*
 const characters = ref<Characters[]>([]);
@@ -33,7 +34,8 @@ function handleUpdate(newPlayerName: string, newShipName: string){
       <h1>Bee Swarm Showdown</h1>
     </header>
     <main>
-      <Acceuil />
+      <!--<Acceuil />-->
+      <!--<Leaderboard :ranks="" :playerRank="" :hasWon=""/>-->
     </main>
     <footer class="container-fluid bg-secondary text-light p-1">
       <p class="text-center">Copyright Hubert Beaupré, Jean-Thomas Lamonde, Onett</p>

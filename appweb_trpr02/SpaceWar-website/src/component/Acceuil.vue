@@ -3,6 +3,7 @@ const emits = defineEmits(['update']);
 
 function notifyParent(newPlayerName: string, newShipName: string): void{
   emits('update', newPlayerName, newShipName);
+  //TODO navigation
 }
 
 let currentPlayerName: string = '';
