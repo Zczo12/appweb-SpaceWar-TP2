@@ -5,6 +5,7 @@ import { ref } from 'vue'
 const playerName = ref<string | null>('');
 const shipName = ref<string | null>('');
 
+
 </script>
 
 <template>
