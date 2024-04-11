@@ -2,15 +2,9 @@ import type { RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
     {
-      path: '/home',
+      path: '/',
       name: 'Accueil',
       component: () => import('../component/Acceuil.vue'),
-      props: true
-    },
-    {
-      path: '/battle_scene',
-      name: 'BattleScene',
-      component: () => import('../component/BattleScene.vue'),
       props: true
     },
     {

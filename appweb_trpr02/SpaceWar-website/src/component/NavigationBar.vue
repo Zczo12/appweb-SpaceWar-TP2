@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
         <h1 class="container-fluid text-dark p-4 text-center">Epic Space War Simulator</h1> 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <RouterLink class="nav-link" id="accueil" to="/home">Acceuil</RouterLink>
+            <RouterLink class="nav-link" id="accueil" to="/">Acceuil</RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink class="nav-link" id="leaderboard" to="/leaderboard">Leaderboard</RouterLink>
