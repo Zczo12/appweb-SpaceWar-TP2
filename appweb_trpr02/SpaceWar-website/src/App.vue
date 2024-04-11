@@ -2,8 +2,6 @@
 //import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import NavigationBar from '../src/component/NavigationBar.vue'
-//import Acceuil from './component/Acceuil.vue';
-//import { RouterLink, RouterView } from 'vue-router'
 
 /*
 const characters = ref<Characters[]>([]);
