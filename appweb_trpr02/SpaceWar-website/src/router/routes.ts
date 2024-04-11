@@ -2,19 +2,20 @@ import type { RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
     {
-      path: '/',
-      name: 'Posts',
-      component: () => import('../component/Acceuil.vue')
+      path: '/home',
+      name: 'Accueil',
+      component: () => import('../component/Acceuil.vue'),
+      props: true
     },
     {
-      path: '/about',
-      name: 'About',
+      path: '/battle_scene',
+      name: 'BattleScene',
       component: () => import('../component/BattleScene.vue'),
       props: true
     },
     {
-      path: '/posts/:id',
-      name: 'PostDetail',
+      path: '/leaderboard',
+      name: 'Leaderboard',
       component: () => import('../component/Leaderboard.vue'),
       props: true
     },

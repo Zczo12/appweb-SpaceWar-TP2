@@ -1,20 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Acceuil from '../component/Acceuil.vue'
-import Leaderboard from '../component/Leaderboard.vue'
+import routes from './routes'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Acceuil
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: Leaderboard
-    }
-  ]
+  routes
 })
 
 export default router
