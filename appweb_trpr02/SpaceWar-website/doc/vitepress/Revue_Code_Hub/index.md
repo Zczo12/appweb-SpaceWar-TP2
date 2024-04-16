@@ -3,23 +3,31 @@
 layout: home
 
 hero:
-  name: "HubertB24"
-  text: "revue du code de JT"
-  tagline: My great project tagline
+  name: "Hubert"
+  text: "Revue du code de Jean-Thomas"
   actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - theme: alt
+    text: Semaine 1
 ---
+## **gameService.ts**
+Les méthode fetch ne respectent pas le *DRY*, il serait possible d'unifier celles-ci (facilement les trois première) en une seule qui recevrait une string en paramètre.
+
+```ts
+const baseURL: string = "http://127.0.0.1:3000/";
+
+static async fetchShips() {
+  const response = await fetch(baseURL + "ships");
+  return response.json();
+}
+```
+
+## **NavigationBar.vue**
+La navigation vers BattleScene est manquante.
+
+## **Leaderboard.vue**
+La répétition de l'interface *Ranks* ne respecte pas le *DRY*.
+
+## **Tests**
+Aucun test n'a été effectué pour le moment.
+
 
