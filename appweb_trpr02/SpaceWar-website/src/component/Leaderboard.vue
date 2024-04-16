@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import gameService from "../scripts/gameService";
+import { Ranks } from "../scripts/gameService";
 
-interface Ranks {
-  id: number;
-  name: string;
-  score: number;
-}
 
 const showPopup = ref<boolean>(false);
 const listRankings = ref<Ranks[] | null>([]);

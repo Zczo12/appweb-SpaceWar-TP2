@@ -14,6 +14,12 @@ const routes: Array<RouteRecordRaw> = [
       props: true
     },
     {
+      path: '/battle_scene',
+      name: 'BattleScene',
+      component: () => import('../component/BattleScene.vue'),
+      props: true
+    },
+    {
       //TODO 
       //add a notFound page for error Handling
       path: '/:pathMatch(.*)*',
