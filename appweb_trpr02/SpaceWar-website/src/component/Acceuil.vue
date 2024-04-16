@@ -29,4 +29,5 @@ const handleSubmit = (event: Event) => {
             <button type="submit">Lancer mission</button>
         </form>        
     </div>
+
 </template>
