@@ -29,7 +29,6 @@ const handleSubmit = (event: Event) => {
   }
 };  
 
-
 async function fetchShips() {
   try {
     listShips.value = await gameService.fetchShips();
@@ -62,4 +61,5 @@ fetchShips();
             </div>
         </div>
     </div>
+
 </template>
