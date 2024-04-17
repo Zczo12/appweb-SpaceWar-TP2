@@ -57,7 +57,7 @@ fetchShips();
         </form>
         <div v-if="showPopup" class="modal-mask">
             <div class="alert alert-danger mt-3" role="alert">
-                Une erreur est survenue lors du chargement du tableau de pointage.
+                Une erreur est survenue lors du chargement des vaisseaux.
             </div>
         </div>
     </div>
