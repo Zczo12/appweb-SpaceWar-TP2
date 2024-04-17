@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
       props: true
     },
     {
-      path: '/battle_scene',
+      path: '/battle_scene/:player_name/:ship_name',
       name: 'BattleScene',
       component: () => import('../component/BattleScene.vue'),
       props: true

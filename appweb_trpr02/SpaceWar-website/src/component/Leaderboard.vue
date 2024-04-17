@@ -10,6 +10,7 @@ const listRankings = ref<Ranks[] | null>([]);
 async function fetchRankings() {
   try {
     listRankings.value = await gameService.fetchRankings();
+    listRankings.value?.sort();
   } catch (error) {
     showPopup.value = true;
   }
@@ -24,7 +25,10 @@ fetchRankings();
       <h2>Nos meilleurs pilotes</h2>
       <ul id="leaderboard">
         <li v-for="rank in listRankings" :key="rank.id">
-          {{ rank.name }}  :  {{ rank.score }} points
+          <div class="row g-0" >
+            <div class="col-sm-3 col-md-8">{{ rank.name }}</div>
+            <div class="col-6 col-md-4 text-center"> {{ rank.score }}</div>
+          </div>
         </li>
       </ul>
     </div>

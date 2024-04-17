@@ -1,32 +1,65 @@
 <script setup lang="ts">
-const emits = defineEmits(['update']);
+import { ref } from "vue";
+import { Ships } from "../scripts/gameService";
+import router from "../router";
+import gameService from "../scripts/gameService";
 
-function notifyParent(newPlayerName: string, newShipName: string): void{
-  emits('update', newPlayerName, newShipName);
-  //TODO navigation
-}
+const showPopup = ref<boolean>(false);
+const currentPlayerName = ref<string | null>(null);
+const currentShip = ref<Ships | null>(null);
+const listShips = ref<Ships[] | null>(null);
 
-let currentPlayerName: string = '';
-let currentShipName: string = '';
-
-function setPlayerInfos(newPlayerName: string, newShipName: string){
-    currentPlayerName = newPlayerName;
-    currentShipName = newShipName;
-    notifyParent(newPlayerName, newShipName);
+function setPlayerInfos(newPlayerName: string | null , newShip: Ships | null) {
+  currentPlayerName.value = newPlayerName;
+  currentShip.value = newShip;
 }
 
 const handleSubmit = (event: Event) => {
-    //TODO verifications
-    setPlayerInfos(currentPlayerName, currentShipName);
+  event.preventDefault();
+  setPlayerInfos(currentPlayerName.value, currentShip.value);
+  if (currentPlayerName.value && currentShip.value) {
+    router.push({
+      name: "BattleScene",
+      params: 
+        {
+            player_name: currentPlayerName.value,
+            ship_name: currentShip.value.name
+        }
+    });
+  }
+};  
+
+
+async function fetchShips() {
+  try {
+    listShips.value = await gameService.fetchShips();
+    listShips.value?.sort();
+  } catch (error) {
+    showPopup.value = true;
+  }
 }
+
+fetchShips();
 </script>
 
 <template>
-    <div>
-        <form @submit="handleSubmit">
-            <p>Nom du joueur: <input type="text" required v-model="currentPlayerName"</p>
-            <p>Nom du vaisseau: <input type="text" required v-model="currentShipName"</p>
-            <button type="submit">Lancer mission</button>
-        </form>        
+ <div class="container text-center">
+        <form @submit="handleSubmit" class="mt-5">
+            <div class="">
+                Nom du joueur: 
+                <input class="form-control" type="text" required v-model="currentPlayerName">
+            </div>
+            <div class="mt-3">Nom du vaisseau:</div>
+            <select v-model="currentShip" class="form-select form-control">
+                <option disabled value="">Please select one</option>
+                <option v-for="ship in listShips" :key="ship.id" :value="ship">{{ ship.name }}</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-3 mb-3">Lancer mission</button>
+        </form>
+        <div v-if="showPopup" class="modal-mask">
+            <div class="alert alert-danger mt-3" role="alert">
+                Une erreur est survenue lors du chargement du tableau de pointage.
+            </div>
+        </div>
     </div>
 </template>
