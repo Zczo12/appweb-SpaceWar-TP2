@@ -1,14 +1,14 @@
 {
   "ranking": [
     {
-      "id": 1,
-      "name": "Yan Maz Solo",
-      "score": 500
-    },
-    {
       "id": 2,
       "name": "Jym'Gil the Hutt",
       "score": 495
+    },
+    {
+      "id": 1,
+      "name": "Yan Maz Solo",
+      "score": 500
     },
     {
       "id": 3,

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import gameService from "../scripts/gameService";
 
 const showPopup = ref<boolean>(false);
 

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import gameService from "../scripts/gameService";
+
+const props = defineProps<{
+  playerName: string | string[];
+  shipName: string | string[];
+}>();
 
 const showPopup = ref<boolean>(false);
 
@@ -10,10 +14,10 @@ const showPopup = ref<boolean>(false);
 
     <div class="col-6">
         <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b;">
-            <div class="header bg-primary rounded-top p-3">Joueur</div>
+            <div class="header bg-primary rounded-top p-3">{{ props.playerName }}</div>
             <div class="p-4">
                 <h5>Maitre - 0 CG</h5>
-                <p class="text-center">Nom du vaisseau</p>
+                <p class="text-center">{{ props.shipName }}</p>
                 <progress class="w-100" value="100" max ="100">100%</progress>                       
             </div>
         </div>

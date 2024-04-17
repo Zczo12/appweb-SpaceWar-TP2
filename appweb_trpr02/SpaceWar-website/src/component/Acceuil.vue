@@ -42,7 +42,7 @@ fetchShips();
 </script>
 
 <template>
- <div class="container text-center">
+ <div  style="width: 500px; " class="container text-center">
         <form @submit="handleSubmit" class="mt-5">
             <div class="">
                 Nom du joueur: 
@@ -53,7 +53,7 @@ fetchShips();
                 <option disabled value="">Please select one</option>
                 <option v-for="ship in listShips" :key="ship.id" :value="ship">{{ ship.name }}</option>
             </select>
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Lancer mission</button>
+            <button type="submit" class="btn btn-primary mt-3">Lancer mission</button>
         </form>
         <div v-if="showPopup" class="modal-mask">
             <div class="alert alert-danger mt-3" role="alert">

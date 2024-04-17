@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import gameService from "../scripts/gameService";
 
 const showPopup = ref<boolean>(false);
 
@@ -9,7 +8,7 @@ const showPopup = ref<boolean>(false);
 <template>
 
     <div class="col-6">
-        <div class="box rounded m-1" style="height: 180px; width: 300px; background-color: #3b3b3b; overflow: hidden;">
+        <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b; overflow: hidden;">
             <div class="header bg-primary rounded-top p-3">Mission en cours</div>
             <div class="p-4">
                 <h5>1/5</h5>
