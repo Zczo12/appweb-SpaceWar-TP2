@@ -14,10 +14,6 @@ const listCharacters = ref<Characters[] | null>([]);
 const playerName = ref<string | string[]>("");
 const shipName = ref<string | string[]>("");
 
-const playerHealth = ref<number>(0);
-const enemyHealth = ref<number>(0);
-const missionCount = ref<number>(1);
-
 function setPlayerInfos(){
     playerName.value = route.params.player_name;
     shipName.value = route.params.ship_name;

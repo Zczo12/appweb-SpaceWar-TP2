@@ -1,8 +1,74 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { Player, Characters } from "../scripts/gameService";
+
+const props = defineProps<{
+    player: Player | null;
+    enemy: Characters | null;
+    missionCounter: number | null;
+}>();
 
 const showPopup = ref<boolean>(false);
 
+const emits = defineEmits(['battle', 'endMission']);
+
+function notifyAttack(playerDamage: number, enemyDamage: number, playerCredits: number | undefined): void {
+    emits('battle', playerDamage, enemyDamage, playerCredits);
+}
+
+function notifyMission(missionCounter: number, heal: boolean): void {
+    emits('endMission', missionCounter, heal)
+}
+
+function attack(): void {
+    let playerDamage: number = 0;
+    let playerOdds: number = 0;
+    let enemyDamage: number = 0;
+    let enemyAccuracy: number = 0;
+    let enemyOdds: number = 0;
+    let gainedCredits: number | undefined = 0;
+
+    switch(props.enemy?.experience) {
+        case 1: {
+            enemyAccuracy = 20;
+            break;
+        }
+        case 2: {
+            enemyAccuracy = 35;           
+            break; 
+        }
+        case 3: {
+            enemyAccuracy = 50;           
+            break; 
+        }
+        case 4: {
+            enemyAccuracy = 70;            
+            break;
+        }
+    }
+
+    playerOdds = Math.floor(Math.random() * 101);
+    enemyOdds = Math.floor(Math.random() * 101);
+
+    if(playerOdds <= 70)
+        playerDamage = ((props.enemy?.ship?.vitality || 0) / 100) * (Math.floor(Math.random() * 4) + 3);
+    if(enemyOdds <= enemyAccuracy) {
+        enemyDamage = ((props.player?.vitality || 0) / 100) * (Math.floor(Math.random() * 4) + 3);
+        if(enemyDamage >= (props.enemy?.ship?.vitality || 0)){
+            gainedCredits = props.enemy?.credit;
+        }
+    }
+        
+    notifyAttack(playerDamage, enemyDamage, gainedCredits);
+}
+
+function endMission(): void {
+    notifyMission(props.missionCounter?props.missionCounter + 1 : 1, false);
+}
+
+function healAndEndMission(): void {
+    notifyMission(props.missionCounter?props.missionCounter + 1 : 1, true);
+}
 
 </script>
 
@@ -12,9 +78,9 @@ const showPopup = ref<boolean>(false);
         <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b;">
             <div class="header bg-primary rounded-top p-3">Actions</div>
             <div class="p-4">
-                <button type="button" class="btn btn-primary">Combattre</button>
-                <button type="button" class="btn btn-primary">Terminer la mission</button>
-                <button type="button" class="btn btn-primary">Terminer la mission et réparer le vaisseau</button>                        
+                <button @click="attack()" type="button" class="btn btn-primary">Combattre</button>
+                <button @click="endMission()" type="button" class="btn btn-primary">Terminer la mission</button>
+                <button @click="healAndEndMission()" type="button" class="btn btn-primary">Terminer la mission et réparer le vaisseau</button>                        
             </div>
         </div>
     </div>
