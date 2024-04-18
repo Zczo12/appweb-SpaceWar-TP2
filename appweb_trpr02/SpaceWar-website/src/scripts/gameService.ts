@@ -9,6 +9,12 @@ export interface Ships {
   name: string;
 }
 
+export interface Player {
+  name: string;
+  credit: number;
+  vitality: number;
+}
+
 export interface Characters {
   id: number;
   name: string;
