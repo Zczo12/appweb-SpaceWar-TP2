@@ -21,30 +21,13 @@ function notifyMission(missionCounter: number, heal: boolean): void {
 }
 
 function attack(): void {
-    let playerDamage: number = 0;
-    let playerOdds: number = 0;
-    let enemyDamage: number = 0;
-    let enemyAccuracy: number = 0;
-    let enemyOdds: number = 0;
-    let gainedCredits: number | undefined = 0;
+    let playerDamage = 0, playerOdds = 0, enemyDamage = 0, enemyAccuracy = 0, enemyOdds = 0, gainedCredits: number | undefined = 0;
 
     switch(props.enemy?.experience) {
-        case 1: {
-            enemyAccuracy = 20;
-            break;
-        }
-        case 2: {
-            enemyAccuracy = 35;           
-            break; 
-        }
-        case 3: {
-            enemyAccuracy = 50;           
-            break; 
-        }
-        case 4: {
-            enemyAccuracy = 70;            
-            break;
-        }
+        case 1: enemyAccuracy = 20; break;
+        case 2: enemyAccuracy = 35; break;
+        case 3: enemyAccuracy = 50; break;
+        case 4: enemyAccuracy = 70; break;
     }
 
     playerOdds = Math.floor(Math.random() * 101);
