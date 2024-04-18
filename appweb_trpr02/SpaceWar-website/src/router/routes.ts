@@ -4,7 +4,7 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: '/',
       name: 'Accueil',
-      component: () => import('../component/Acceuil.vue'),
+      component: () => import('../component/Accueil.vue'),
     },
     {
       path: '/leaderboard',
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
       //add a notFound page for error Handling
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: () => import('../component/Acceuil.vue')
+      component: () => import('../component/Accueil.vue')
     }
   ]
   

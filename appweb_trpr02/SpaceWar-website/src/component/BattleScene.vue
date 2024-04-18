@@ -36,8 +36,8 @@ fetchCharacters();
 </script>
 
 <template>
-    <div class="container text-white">
-        <div class="row">
+    <div class="container text-white mt-3">
+        <div class="row mb-2" >
             <BattleActions />
             <BattleMission />
         </div>
