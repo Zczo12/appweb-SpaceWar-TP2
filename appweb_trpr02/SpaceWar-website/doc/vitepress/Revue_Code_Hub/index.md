@@ -7,27 +7,16 @@ hero:
   text: "Revue du code de Jean-Thomas"
   actions:
   - theme: alt
-    text: Semaine 1
+    text: Semaine 2
 ---
-## **gameService.ts**
-Les méthode fetch ne respectent pas le *DRY*, il serait possible d'unifier celles-ci (facilement les trois première) en une seule qui recevrait une string en paramètre.
 
-```ts
-const baseURL: string = "http://127.0.0.1:3000/";
+## **Page 404**
+Une page 404 n'existe pas encore.
 
-static async fetchShips() {
-  const response = await fetch(baseURL + "ships");
-  return response.json();
-}
-```
-
-## **NavigationBar.vue**
-La navigation vers BattleScene est manquante.
-
-## **Leaderboard.vue**
-La répétition de l'interface *Ranks* ne respecte pas le *DRY*.
+## **Acceuil.vue**
+console.log non nettoyé dans le component Acceuil.vue.
 
 ## **Tests**
-Aucun test n'a été effectué pour le moment.
+Les tests concernant le formulaire d'Acceuil ne fonctionnent pas.
 
 
