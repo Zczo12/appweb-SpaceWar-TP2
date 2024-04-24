@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import gameService from "../scripts/gameService";
 import type { Ships } from "../scripts/gameService";
 

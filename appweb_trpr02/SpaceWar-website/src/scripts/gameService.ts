@@ -30,7 +30,7 @@ export interface Characters {
 export default class gameService {
   static async fetchRankings() {
     const response = await fetch("http://127.0.0.1:3000/ranking");
-    return response.json();
+    return await response.json();
   }
   
   static async fetchShips() {

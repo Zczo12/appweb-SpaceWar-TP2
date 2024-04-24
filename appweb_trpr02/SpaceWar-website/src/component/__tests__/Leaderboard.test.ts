@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import Leaderboard from '../Leaderboard.vue';
 import { mount } from '@vue/test-utils';
 
-vi.mock('../../scripts/gameService', () => {
+vi.mock('../../scripts/gameService.ts', () => {
     const ranking = [
         {
             id: 2,
@@ -22,7 +22,7 @@ vi.mock('../../scripts/gameService', () => {
     ];
 
     const fetchRankings = vi.fn();
-    fetchRankings.mockResolvedValue(ranking);
+    fetchRankings.mockReturnValue(ranking);
 
     return {
         fetchRankings

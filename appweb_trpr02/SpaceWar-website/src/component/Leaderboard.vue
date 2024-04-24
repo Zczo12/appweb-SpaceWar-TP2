@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref , onBeforeMount} from "vue";
 import gameService from "../scripts/gameService";
 import { Ranks } from "../scripts/gameService";
-
 
 const showPopup = ref<boolean>(false);
 const listRankings = ref<Ranks[] | null>([]);
@@ -16,7 +15,9 @@ async function fetchRankings() {
   }
 }
 
-fetchRankings();
+onBeforeMount(async () => {
+  await fetchRankings();
+})
 </script>
 
 <template>

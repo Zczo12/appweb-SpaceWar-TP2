@@ -8,25 +8,38 @@ hero:
   tagline: Semaine 1
 
 ---
-## **Coding 1** : Mauvais type d'input pour les ships
-  Actuellement, Le nom et le ship sont des inputs de type texte dans Accueil.vue.    Utiliser un fetch avec un select/v-model serait plus approprié pour les ships.
+## **Coding 1** : 
+*Dry* sur le pop-up pour la gestion d'erreur avec les vues pour la BattleScene (5 fois dans les 5 vues qui concernce Battle)
 
-## **Coding 2** : Const ref vs Let
-  Utiliser des valeurs let est correct, mais l'usage des valeurs const ref<> est préférable avec vue. Cela nous permet de changer la valeur sans pourvoir réassigner la variable.
+```ts
+    <div v-if="showPopup" class="modal-mask">
+        <dialog open class="alert alert-danger mt-3" role="alert">
+            Une erreur est survenue lors du chargement des ennemis.
+        </dialog>
+    </div>
+```
 
-  ```typescript
+## **Coding 2** : Usage de const pour des valeurs prédéfinies
+  Les valeurs telles (20, 35, 50, 70) : 
 
-      const showPopup = ref<boolean>(false);
-      instead of 
-      let showPopup | boolean;
+```ts
+    switch(props.enemy?.experience) {
+        case 1: enemyAccuracy = 20; break;
+        case 2: enemyAccuracy = 35; break;
+        case 3: enemyAccuracy = 50; break;
+        case 4: enemyAccuracy = 70; break;
+    }
+```
+et (101)
+```ts
+    playerOdds = Math.floor(Math.random() * 101);
+    enemyOdds = Math.floor(Math.random() * 101);
+```
+devraient être des const (BattleActions.vue)
 
-  ```
 
-  ## **Testing 1** : Tests manquants
-  Les vues Leadboard.vue et Accueil.vue ne sont pas testés. Tu devrais ajouter quelques tests pour vous assurer qu'ils fonctionnent comme prévu.
-
-  ## **Others** : Mauvaise logique Accueil.vue
-  Accueil.vue utiise un logique Parent/Enfant avec les props et les emits. La logique pour le passage de données devrait être fait avec le routing et la barre de recherche.
+## **Others** : BattleAction ne recoit pas de props
+Il manque des props pour le fontionnement de BattleAction.vue
 
 
 

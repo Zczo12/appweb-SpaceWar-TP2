@@ -1,13 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import AccueilForm from '../AccueilForm.vue'
-import gameService from '../../scripts/gameService'
+import BattleEnemy from '../BattleEnemy.vue'
 
 
 //Doesn't work 
-describe('AccueilForm.vue', () => {
+describe('BattleEnemy.vue', () => {
   it('Par défaut, un seul input est présent pour le nom du joueur.', async() => {
-    const wrapper = mount(AccueilForm)
+    const wrapper = mount(BattleEnemy)
 
     expect(wrapper.find('input').exists()).toBeTruthy()
   })
