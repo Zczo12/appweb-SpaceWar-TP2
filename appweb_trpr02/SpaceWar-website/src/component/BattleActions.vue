@@ -3,8 +3,8 @@ import { ref } from "vue";
 import { Player, Characters } from "../scripts/gameService";
 
 const props = defineProps<{
-    player: Player | null;
-    enemy: Characters | null;
+    player: Player | null | undefined;
+    enemy: Characters | null | undefined;
     missionCounter: number | null;
 }>();
 

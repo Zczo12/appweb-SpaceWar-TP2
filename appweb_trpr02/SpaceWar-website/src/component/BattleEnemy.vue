@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { Characters } from "../scripts/gameService";
+
+const props = defineProps<{
+    enemy: Characters | null | undefined;
+}>();
 
 const showPopup = ref<boolean>(false);
 
@@ -14,10 +19,10 @@ const progressBarWidth = computed(() => {
 <template>
     <div class="col-6">
         <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b;">
-            <div class="header bg-primary text-white rounded-top p-3">Ennemi</div>
+            <div class="header bg-primary text-white rounded-top p-3">{{ props.enemy?.name }}</div>
             <div class="p-4">
-                <h5>Maitre - {{ enemyCredits }} CG</h5>
-                <p class="text-center">Nom du vaisseau</p>
+                <h5>{{ props.enemy?.experience }} - {{ props.enemy?.credit }} CG</h5>
+                <p class="text-center">{{ props.enemy?.ship.name }}</p>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" :style="{ width: progressBarWidth }" 
                         aria-valuenow="enemyHealth" aria-valuemin="0" aria-valuemax="100">
