@@ -2,10 +2,16 @@
 import { ref } from "vue";
 import { Player, Characters } from "../scripts/gameService";
 
+const MISSIONCOUNTERUP : number = 1;
+
+const DÉBUTANT_ACCURACY : number = 20 ;
+const CONFIRMÉ_ACCURACY : number = 35 ;
+const EXPERT_ACCURACY : number = 50 ;
+const MAITRE_ACCURACY : number = 70 ;
+
 const props = defineProps<{
     player: Player | null | undefined;
     enemy: Characters | null | undefined;
-    missionCounter: number | null;
 }>();
 
 const showPopup = ref<boolean>(false);
@@ -24,19 +30,20 @@ function attack(): void {
     let playerDamage = 0, playerOdds = 0, enemyDamage = 0, enemyAccuracy = 0, enemyOdds = 0, gainedCredits: number | undefined = 0;
 
     switch(props.enemy?.experience) {
-        case 1: enemyAccuracy = 20; break;
-        case 2: enemyAccuracy = 35; break;
-        case 3: enemyAccuracy = 50; break;
-        case 4: enemyAccuracy = 70; break;
+        case 1: enemyAccuracy = DÉBUTANT_ACCURACY; break;
+        case 2: enemyAccuracy = CONFIRMÉ_ACCURACY; break;
+        case 3: enemyAccuracy = EXPERT_ACCURACY; break;
+        case 4: enemyAccuracy = MAITRE_ACCURACY; break;
     }
 
     playerOdds = Math.floor(Math.random() * 101);
     enemyOdds = Math.floor(Math.random() * 101);
 
     if(playerOdds <= 70)
-        playerDamage = ((props.enemy?.ship?.vitality || 0) / 100) * (Math.floor(Math.random() * 4) + 3);
+        playerDamage = (Math.floor(Math.random() * 15) + 5);
+
     if(enemyOdds <= enemyAccuracy) {
-        enemyDamage = ((props.player?.vitality || 0) / 100) * (Math.floor(Math.random() * 4) + 3);
+        enemyDamage = (Math.floor(Math.random() * 10) + 3);
         if(enemyDamage >= (props.enemy?.ship?.vitality || 0)){
             gainedCredits = props.enemy?.credit;
         }
@@ -46,11 +53,11 @@ function attack(): void {
 }
 
 function endMission(): void {
-    notifyMission(props.missionCounter?props.missionCounter + 1 : 1, false);
+    notifyMission(MISSIONCOUNTERUP, false);
 }
 
 function healAndEndMission(): void {
-    notifyMission(props.missionCounter?props.missionCounter + 1 : 1, true);
+    notifyMission(MISSIONCOUNTERUP, true);
 }
 
 </script>

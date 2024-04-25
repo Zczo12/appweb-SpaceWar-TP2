@@ -9,7 +9,6 @@ const currentShip = ref<Ships | null>(null);
 
 function handleFormSubmit(newPlayerName: string | null , newShip: Ships | null) {
   setPlayerInfos(newPlayerName, newShip);
-  console.log("Niger");
   if (currentPlayerName.value && currentShip.value) {
     router.push({
       name: "BattleScene",
@@ -26,8 +25,6 @@ function handleFormSubmit(newPlayerName: string | null , newShip: Ships | null) 
 function setPlayerInfos(newPlayerName: string | null , newShip: Ships | null) {
   currentPlayerName.value = newPlayerName;
   currentShip.value = newShip;
-  console.log("Niger");
-
 }
  
 </script>

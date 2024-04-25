@@ -3,7 +3,7 @@ import Leaderboard from '../Leaderboard.vue';
 import { mount } from '@vue/test-utils';
 
 vi.mock('../../scripts/gameService.ts', () => {
-    const ranking = [
+    const rankings = [
         {
             id: 2,
             name: "Jym'Gil the Hutt",
@@ -21,9 +21,8 @@ vi.mock('../../scripts/gameService.ts', () => {
         }
     ];
 
-    const fetchRankings = vi.fn();
-    fetchRankings.mockReturnValue(ranking);
-
+    const fetchRankings = vi.fn(async () => rankings);
+    
     return {
         fetchRankings
     };

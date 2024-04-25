@@ -39,7 +39,7 @@ export default class gameService {
   }
   
   static async fetchCharacters() {
-    const response = await fetch("http://127.0.0.1:3000/characters?_page=1&_limit=1");
+    const response = await fetch("http://127.0.0.1:3000/characters?_page=1&_limit=100");
     return response.json();
   }
 
