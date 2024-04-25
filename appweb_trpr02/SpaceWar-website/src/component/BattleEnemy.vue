@@ -31,12 +31,11 @@ function getExperience(experience: number | undefined): string {
     }
 }
 
-
 const showPopup = ref<boolean>(false);
 
-
 const progressBarWidth = computed(() => {
-  return `${props.enemy?.ship.vitality}%`;
+    const vitality = props.enemy?.ship.vitality || 0;
+    return `${Math.floor((vitality / (initialVitality.value || 1)) * 100)}%`;
 });
 </script>
 
@@ -49,8 +48,8 @@ const progressBarWidth = computed(() => {
                 <p class="text-center">{{ props.enemy?.ship.name }}</p>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" :style="{ width: progressBarWidth }" 
-                        aria-valuenow="props.enemy.ship.vitality" aria-valuemin="0" aria-valuemax=initialVitality.value.>
-                        {{ props.enemy?.ship.vitality }}%
+                        aria-valuenow="props.enemy.ship.vitality" aria-valuemin="0" aria-valuemax="100">
+                        {{ progressBarWidth }}
                     </div>
                 </div>                       
             </div>
