@@ -49,4 +49,15 @@ export default class gameService {
   }
 
   // Add post fetch for creating a new ranking
+  static async addRanking(ranking: Ranks) {
+    const response = await fetch("http://127.0.0.1:3000/ranking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(ranking)
+    });
+    return await response.json();
+  }
+  
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import gameService, { Player, Characters } from "../scripts/gameService";
+import gameService, { Player, Characters, Ranks } from "../scripts/gameService";
 import BattleActions from "./BattleActions.vue";
 import BattleMission from "./BattleMission.vue";
 import BattlePlayer from "./BattlePlayer.vue";
@@ -59,8 +59,6 @@ fetchCharacters();
 
 async function handleNextMission(missionCounter: number, heal: boolean) {
   if (currentMissionCount.value >= 5) {
-    //Faire un pop up avec un bouton qui redirige au leaderboard (va voir dans le fichier Accueil pour voir le router.push pis oublie pas de add
-    // la value a la bd)
     showSuccessPopup.value = true;
   } else {
     if(currentMissionCount.value !== null && currentEnemy.value && currentEnemy.value.ship.vitality <= 0) {
@@ -120,7 +118,24 @@ function goToMainMenu() {
 }
 
 function goToLeaderBoard() {
-  router.push({ name: 'Leaderboard'});
+  if(player.value){
+      const newRanking: Ranks = {
+      id: 4,
+      name: playerName.value[0],
+      score: player.value?.credit
+    };
+
+    gameService.addRanking(newRanking)
+    .then((data) => {
+      console.log("New ranking added successfully:", data);
+    })
+    .catch((error) => {
+      console.error("Error adding new ranking:", error);
+    });
+
+    router.push({ name: 'Leaderboard'});    
+  }
+
 }
 
 </script>
