@@ -12,6 +12,7 @@ const route = useRoute();
 const showPopup = ref<boolean>(false);
 const showWinPopup = ref<boolean>(false);
 const showLosePopup = ref<boolean>(false);
+const showSuccessPopup = ref<boolean>(false);
 
 const listCharacters = ref<Characters[] | null>([]);
 
@@ -57,16 +58,15 @@ setPlayerInfos();
 fetchCharacters();
 
 async function handleNextMission(missionCounter: number, heal: boolean) {
-  if (missionCounter == 5) {
+  if (currentMissionCount.value >= 5) {
     //Faire un pop up avec un bouton qui redirige au leaderboard (va voir dans le fichier Accueil pour voir le router.push pis oublie pas de add
     // la value a la bd)
+    showSuccessPopup.value = true;
   } else {
-    if(currentMissionCount.value !== null && currentMissionCount.value !== undefined) {
+    if(currentMissionCount.value !== null && currentEnemy.value && currentEnemy.value.ship.vitality <= 0) {
       currentMissionCount.value += missionCounter;
     }
-    
-    console.log("addedMission" + missionCounter);
-    console.log("currentMission" + currentMissionCount.value);
+
     if (heal === true && player.value) {
       const creditsNeeded = Math.max(0, (100 - player.value.vitality) * 2); 
       const creditsUsed = Math.min(player.value.credit, creditsNeeded); 
@@ -116,8 +116,12 @@ async function notifyAttack(
 }
 
 function goToMainMenu() {
-    router.push({ name: 'Accueil' });
-  }
+  router.push({ name: 'Accueil' });
+}
+
+function goToLeaderBoard() {
+  router.push({ name: 'Leaderboard'});
+}
 
 </script>
 
@@ -149,10 +153,17 @@ function goToMainMenu() {
   </div>
 
   <div v-if="showLosePopup" class="modal-mask">
-  <dialog open class="alert alert-danger mt-3" role="alert">
-    Vous avez perdu... si vous voulez faire un autre partie retourner au menu
-    <button @click="goToMainMenu" class="btn btn-primary mt-3">Retourner au menu</button>
-  </dialog>
-</div>
+    <dialog open class="alert alert-danger mt-3" role="alert">
+      Vous avez perdu... si vous voulez faire un autre partie retourner au menu
+      <button @click="goToMainMenu" class="btn btn-primary mt-3">Retourner au menu</button>
+    </dialog>
+  </div>
+
+  <div v-if="showSuccessPopup" class="modal-mask">
+    <dialog open class="alert alert-primary mt-3" role="alert">
+      Vous avez complété toute les missions! Vous pouvez aller voir votre classement
+      <button @click="goToLeaderBoard" class="btn btn-primary mt-3">Votre classement</button>
+    </dialog>
+  </div>
 
 </template>
