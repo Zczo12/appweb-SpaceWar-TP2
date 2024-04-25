@@ -21,7 +21,7 @@ const shipName = ref<string | string[]>("");
 
 const currentEnemy = ref<Characters | null>();
 
-const missionCounter = ref<number | null>(0);
+const currentMissionCount = ref<number>(0);
 
 function setPlayerInfos() {
   playerName.value = route.params.player_name;
@@ -61,13 +61,18 @@ async function handleNextMission(missionCounter: number, heal: boolean) {
     //Faire un pop up avec un bouton qui redirige au leaderboard (va voir dans le fichier Accueil pour voir le router.push pis oublie pas de add
     // la value a la bd)
   } else {
-    missionCounter += missionCounter;
+    if(currentMissionCount.value !== null && currentMissionCount.value !== undefined) {
+      currentMissionCount.value += missionCounter;
+    }
+    
+    console.log("addedMission" + missionCounter);
+    console.log("currentMission" + currentMissionCount.value);
     if (heal === true && player.value) {
-        const creditsNeeded = Math.max(0, (100 - player.value.vitality) * 2); 
-        const creditsUsed = Math.min(player.value.credit, creditsNeeded); 
-        const vitalityGained = Math.floor(creditsUsed / 2); 
-        player.value.vitality += vitalityGained; 
-        player.value.credit -= creditsUsed; 
+      const creditsNeeded = Math.max(0, (100 - player.value.vitality) * 2); 
+      const creditsUsed = Math.min(player.value.credit, creditsNeeded); 
+      const vitalityGained = Math.floor(creditsUsed / 2); 
+      player.value.vitality += vitalityGained; 
+      player.value.credit -= creditsUsed; 
     }
     getRandomEnemy();
   }
@@ -101,6 +106,9 @@ async function notifyAttack(
       showWinPopup.value = false;
       if (currentEnemy.value.ship.vitality < 0) {
         currentEnemy.value.ship.vitality = 0;
+        if(player.value)
+          player.value.credit += currentEnemy.value.credit;
+        console.log(player.value?.credit);
         showWinPopup.value = true;
       }
     }
@@ -119,11 +127,11 @@ function goToMainMenu() {
       <BattleActions
         :player="player"
         :enemy="currentEnemy"
-        :missionCounter="missionCounter"
+        :missionCounter="currentMissionCount"
         @battle="notifyAttack"
         @endMission="handleNextMission"
       />
-      <BattleMission :missionCounter="missionCounter" />
+      <BattleMission :missionCounter="currentMissionCount" />
     </div>
     <div class="row">
       <BattlePlayer :player="player" :shipName="shipName" />

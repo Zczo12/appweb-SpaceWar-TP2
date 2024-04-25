@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 const props = defineProps<{
-    missionCounter: number | null;
+    missionCounter: number | null | undefined;
 }>();
 
 const showPopup = ref<boolean>(false);

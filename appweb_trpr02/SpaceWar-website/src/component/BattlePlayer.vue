@@ -9,8 +9,6 @@ const props = defineProps<{
 
 const showPopup = ref<boolean>(false);
 
-const playerCredits = ref<number | null>(0);
-
 const progressBarWidth = computed(() => {
     console.log(props.player?.vitality)
   return `${props.player?.vitality}%`;
@@ -23,7 +21,7 @@ const progressBarWidth = computed(() => {
         <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b;">
             <div class="header bg-primary rounded-top p-3">{{ props.player?.name }}</div>
             <div class="p-4">
-                <h5>Maitre - {{ playerCredits }} CG</h5>
+                <h5>Maitre - {{ props.player?.credit }} CG</h5>
                 <p class="text-center">{{ props.shipName }}</p>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" :style="{ width: progressBarWidth }" 
