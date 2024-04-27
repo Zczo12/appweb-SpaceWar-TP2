@@ -28,15 +28,12 @@ vi.mock('../../scripts/gameService.ts', () => {
     };
 });
 
-//Doesn't work 
-
 describe('Leaderboard.vue', () => {
     it('Par défaut, une liste de joueurs est affichée', async () => {
         const wrapper = mount(Leaderboard);
 
         await wrapper.vm.$nextTick();
 
-        // Check if the component contains the expected number of players
         expect(wrapper.findAll('.list-group-item')).toHaveLength(3);
     });
 });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import { Player, Characters } from "../scripts/gameService";
 
 const MISSIONCOUNTERUP : number = 1;
@@ -14,12 +14,10 @@ const props = defineProps<{
     enemy: Characters | null | undefined;
 }>();
 
-const showPopup = ref<boolean>(false);
-
 const emits = defineEmits(['battle', 'endMission']);
 
-function notifyAttack(playerDamage: number, enemyDamage: number, playerCredits: number | undefined): void {
-    emits('battle', playerDamage, enemyDamage, playerCredits);
+function notifyAttack(playerDamage: number, enemyDamage: number): void {
+    emits('battle', playerDamage, enemyDamage);
 }
 
 function notifyMission(missionCounter: number, heal: boolean): void {
@@ -27,7 +25,7 @@ function notifyMission(missionCounter: number, heal: boolean): void {
 }
 
 function attack(): void {
-    let playerDamage = 0, playerOdds = 0, enemyDamage = 0, enemyAccuracy = 0, enemyOdds = 0, gainedCredits: number | undefined = 0;
+    let playerDamage = 0, playerOdds = 0, enemyDamage = 0, enemyAccuracy = 0, enemyOdds = 0;
 
     switch(props.enemy?.experience) {
         case 1: enemyAccuracy = DÉBUTANT_ACCURACY; break;
@@ -45,26 +43,32 @@ function attack(): void {
     if(enemyOdds <= enemyAccuracy) {
         enemyDamage = (Math.floor(Math.random() * 10) + 3);
         if(enemyDamage >= (props.enemy?.ship?.vitality || 0)){
-            gainedCredits = props.enemy?.credit;
         }
     }
         
-    notifyAttack(playerDamage, enemyDamage, gainedCredits);
+    notifyAttack(playerDamage, enemyDamage);
 }
 
 function endMission(): void {
-    notifyMission(MISSIONCOUNTERUP, false);
+    if (props.player == undefined || props.enemy == undefined) {
+        return;
+    }else{
+        if ((props.player?.vitality >= 0 || props.enemy?.ship.vitality >= 0) && props.player.vitality >= 0 && props.enemy.ship.vitality <= 0) {
+            notifyMission(MISSIONCOUNTERUP, false);
+        }
+    }
 }
 
 function healAndEndMission(): void {
-    notifyMission(MISSIONCOUNTERUP, true);
+    if (props.player == undefined || props.enemy == undefined) {
+        return;
+    }else{
+        if (props.player.vitality >= 0 && props.enemy.ship.vitality <= 0) {
+            notifyMission(MISSIONCOUNTERUP, true);
+        }
+    }
 }
 
-if (props.player == null || props.enemy == null) {
-    showPopup.value = true;
-} else {
-    showPopup.value = false;
-}
 </script>
 
 <template>
@@ -78,11 +82,5 @@ if (props.player == null || props.enemy == null) {
                 <button @click="healAndEndMission()" type="button" class="btn btn-primary">Terminer la mission et réparer le vaisseau</button>                        
             </div>
         </div>
-    </div>
-
-    <div v-if="showPopup" class="modal-mask">
-        <dialog open class="alert alert-danger mt-3" role="alert">
-            Une erreur est survenue lors du chargement des participants du duel.
-        </dialog>
     </div>
 </template>

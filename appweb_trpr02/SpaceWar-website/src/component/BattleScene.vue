@@ -13,6 +13,7 @@ const showPopup = ref<boolean>(false);
 const showWinPopup = ref<boolean>(false);
 const showLosePopup = ref<boolean>(false);
 const showSuccessPopup = ref<boolean>(false);
+const showWinButDeadPopUp = ref<boolean>(false);
 
 const listCharacters = ref<Characters[] | null>([]);
 
@@ -22,7 +23,7 @@ const shipName = ref<string | string[]>("");
 
 const currentEnemy = ref<Characters | null>();
 
-const currentMissionCount = ref<number>(0);
+const currentMissionCount = ref<number>(1);
 
 function setPlayerInfos() {
   playerName.value = route.params.player_name;
@@ -47,6 +48,7 @@ async function fetchCharacters() {
 
 function getRandomEnemy() {
   if (listCharacters.value) {
+    showWinPopup.value = false;
     let randomIndex: number = Math.floor(
       Math.random() * listCharacters.value.length
     );
@@ -61,26 +63,26 @@ async function handleNextMission(missionCounter: number, heal: boolean) {
   if (currentMissionCount.value >= 5) {
     showSuccessPopup.value = true;
   } else {
-    if(currentMissionCount.value !== null && currentEnemy.value && currentEnemy.value.ship.vitality <= 0) {
+    if (
+      currentMissionCount.value !== null &&
+      currentEnemy.value &&
+      currentEnemy.value.ship.vitality <= 0
+    ) {
       currentMissionCount.value += missionCounter;
     }
 
     if (heal === true && player.value) {
-      const creditsNeeded = Math.max(0, (100 - player.value.vitality) * 2); 
-      const creditsUsed = Math.min(player.value.credit, creditsNeeded); 
-      const vitalityGained = Math.floor(creditsUsed / 2); 
-      player.value.vitality += vitalityGained; 
-      player.value.credit -= creditsUsed; 
+      const creditsNeeded = Math.max(0, (100 - player.value.vitality) * 2);
+      const creditsUsed = Math.min(player.value.credit, creditsNeeded);
+      const vitalityGained = Math.floor(creditsUsed / 2);
+      player.value.vitality += vitalityGained;
+      player.value.credit -= creditsUsed;
     }
     getRandomEnemy();
   }
 }
 
-async function notifyAttack(
-  playerDamage: number,
-  enemyDamage: number,
-  playerCredits: number | undefined
-) {
+async function notifyAttack(playerDamage: number, enemyDamage: number) {
   if (player.value?.vitality != 0 && currentEnemy.value?.ship.vitality != 0) {
     if (player.value && player.value.vitality !== undefined) {
       player.value.vitality -= enemyDamage;
@@ -89,10 +91,6 @@ async function notifyAttack(
         player.value.vitality = 0;
         showLosePopup.value = true;
       }
-    }
-
-    if (player.value && playerCredits !== undefined) {
-      player.value.credit += playerCredits;
     }
 
     if (
@@ -104,40 +102,46 @@ async function notifyAttack(
       showWinPopup.value = false;
       if (currentEnemy.value.ship.vitality < 0) {
         currentEnemy.value.ship.vitality = 0;
-        if(player.value)
-          player.value.credit += currentEnemy.value.credit;
-        console.log(player.value?.credit);
+        if (player.value) player.value.credit += currentEnemy.value.credit;
         showWinPopup.value = true;
+      }
+    }
+    if (
+      player.value &&
+      player.value.vitality !== undefined &&
+      currentEnemy.value &&
+      currentEnemy.value.ship.vitality !== undefined
+    ) {
+      if (currentEnemy.value.ship.vitality < 0 && player.value.vitality < 0) {
       }
     }
   }
 }
 
 function goToMainMenu() {
-  router.push({ name: 'Accueil' });
+  router.push({ name: "Accueil" });
 }
 
 function goToLeaderBoard() {
-  if(player.value){
-      const newRanking: Ranks = {
+  if (player.value) {
+    const newRanking: Ranks = {
       id: 4,
       name: playerName.value[0],
-      score: player.value?.credit
+      score: player.value?.credit,
     };
 
-    gameService.addRanking(newRanking)
-    .then((data) => {
-      console.log("New ranking added successfully:", data);
-    })
-    .catch((error) => {
-      console.error("Error adding new ranking:", error);
-    });
+    gameService
+      .addRanking(newRanking)
+      .then((data) => {
+        console.log("New ranking added successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error adding new ranking:", error);
+      });
 
-    router.push({ name: 'Leaderboard'});    
+    router.push({ name: "Leaderboard" });
   }
-
 }
-
 </script>
 
 <template>
@@ -164,21 +168,34 @@ function goToLeaderBoard() {
   </div>
 
   <div v-if="showWinPopup" class="modal-mask">
-    <dialog open class="alert alert-primary mt-3" role="alert">Vous avez gagné... veuillez clickez sur terminer la mission pour continuer </dialog>
+    <dialog open class="alert alert-primary mt-3" role="alert">
+      Vous avez gagné {{ currentEnemy?.credit }} CG... veuillez clickez sur
+      terminer la mission pour continuer
+    </dialog>
+  </div>
+
+  <div v-if="showWinButDeadPopUp" class="modal-mask">
+    <dialog open class="alert alert-primary mt-3" role="alert">
+      Vous avez gagné {{ currentEnemy?.credit }} CG, mais vous avez perdu votre vaisseau. Réparer votre vaiseau pour continuer l'aventure
+    </dialog>
   </div>
 
   <div v-if="showLosePopup" class="modal-mask">
     <dialog open class="alert alert-danger mt-3" role="alert">
       Vous avez perdu... si vous voulez faire un autre partie retourner au menu
-      <button @click="goToMainMenu" class="btn btn-primary mt-3">Retourner au menu</button>
+      <button @click="goToMainMenu" class="btn btn-primary mt-3">
+        Retourner au menu
+      </button>
     </dialog>
   </div>
 
   <div v-if="showSuccessPopup" class="modal-mask">
     <dialog open class="alert alert-primary mt-3" role="alert">
-      Vous avez complété toute les missions! Vous pouvez aller voir votre classement
-      <button @click="goToLeaderBoard" class="btn btn-primary mt-3">Votre classement</button>
+      Vous avez complété toute les missions! Vous pouvez aller voir votre
+      classement
+      <button @click="goToLeaderBoard" class="btn btn-primary mt-3">
+        Votre classement
+      </button>
     </dialog>
   </div>
-
 </template>
