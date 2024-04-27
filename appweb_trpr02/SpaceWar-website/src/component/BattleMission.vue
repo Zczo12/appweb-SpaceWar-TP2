@@ -7,6 +7,11 @@ const props = defineProps<{
 
 const showPopup = ref<boolean>(false);
 
+if (props.missionCounter == null) {
+    showPopup.value = true;
+} else {
+    showPopup.value = false;
+}
 </script>
 
 <template>
@@ -23,7 +28,7 @@ const showPopup = ref<boolean>(false);
 
     <div v-if="showPopup" class="modal-mask">
         <dialog open class="alert alert-danger mt-3" role="alert">
-            Une erreur est survenue lors du chargement du tableau de pointage.
+            Une erreur est survenue lors du chargement du compteur de missions.
         </dialog>
     </div>
 </template>

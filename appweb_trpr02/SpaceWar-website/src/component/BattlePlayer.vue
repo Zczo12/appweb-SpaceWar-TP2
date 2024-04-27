@@ -13,6 +13,12 @@ const progressBarWidth = computed(() => {
     console.log(props.player?.vitality)
   return `${props.player?.vitality}%`;
 });
+
+if (props.player == null || props.shipName == null) {
+    showPopup.value = true;
+} else {
+    showPopup.value = false;
+}
 </script>
 
 <template>
@@ -35,7 +41,7 @@ const progressBarWidth = computed(() => {
 
     <div v-if="showPopup" class="modal-mask">
         <dialog open class="alert alert-danger mt-3" role="alert">
-            Une erreur est survenue lors du chargement du tableau de pointage.
+            Une erreur est survenue lors du chargement du joueur.
         </dialog>
     </div>
 </template>

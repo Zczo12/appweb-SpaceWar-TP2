@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineProps, defineEmits } from 'vue';
 import { Player, Characters } from "../scripts/gameService";
 
 const MISSIONCOUNTERUP : number = 1;
@@ -60,6 +60,11 @@ function healAndEndMission(): void {
     notifyMission(MISSIONCOUNTERUP, true);
 }
 
+if (props.player == null || props.enemy == null) {
+    showPopup.value = true;
+} else {
+    showPopup.value = false;
+}
 </script>
 
 <template>
@@ -77,7 +82,7 @@ function healAndEndMission(): void {
 
     <div v-if="showPopup" class="modal-mask">
         <dialog open class="alert alert-danger mt-3" role="alert">
-            Une erreur est survenue lors du chargement du tableau de pointage.
+            Une erreur est survenue lors du chargement des participants du duel.
         </dialog>
     </div>
 </template>
