@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
 import { Player, Characters } from "../scripts/gameService";
 
 const MISSIONCOUNTERUP : number = 1;
@@ -63,7 +62,7 @@ function healAndEndMission(): void {
     if (props.player == undefined || props.enemy == undefined) {
         return;
     }else{
-        if (props.player.vitality >= 0 && props.enemy.ship.vitality <= 0) {
+        if ((props.player?.vitality >= 0 || props.enemy?.ship.vitality >= 0) && props.player.vitality >= 0 && props.enemy.ship.vitality <= 0) {
             notifyMission(MISSIONCOUNTERUP, true);
         }
     }

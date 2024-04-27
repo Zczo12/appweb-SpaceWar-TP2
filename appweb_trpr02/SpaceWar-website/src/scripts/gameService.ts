@@ -48,7 +48,6 @@ export default class gameService {
     return response.json();
   }
 
-  // Add post fetch for creating a new ranking
   static async addRanking(ranking: Ranks) {
     const response = await fetch("http://127.0.0.1:3000/ranking", {
       method: "POST",

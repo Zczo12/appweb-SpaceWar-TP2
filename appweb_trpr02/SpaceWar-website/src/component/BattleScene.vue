@@ -13,7 +13,7 @@ const showPopup = ref<boolean>(false);
 const showWinPopup = ref<boolean>(false);
 const showLosePopup = ref<boolean>(false);
 const showSuccessPopup = ref<boolean>(false);
-const showWinButDeadPopUp = ref<boolean>(false);
+const currentId = ref<number>(0);
 
 const listCharacters = ref<Characters[] | null>([]);
 
@@ -53,6 +53,7 @@ function getRandomEnemy() {
       Math.random() * listCharacters.value.length
     );
     currentEnemy.value = listCharacters.value[randomIndex];
+    if(currentEnemy.value.ship.vitality <=0) getRandomEnemy();
   }
 }
 
@@ -113,6 +114,8 @@ async function notifyAttack(playerDamage: number, enemyDamage: number) {
       currentEnemy.value.ship.vitality !== undefined
     ) {
       if (currentEnemy.value.ship.vitality < 0 && player.value.vitality < 0) {
+        showLosePopup.value = true;
+        showWinPopup.value = false;
       }
     }
   }
@@ -122,11 +125,14 @@ function goToMainMenu() {
   router.push({ name: "Accueil" });
 }
 
-function goToLeaderBoard() {
+async function goToLeaderBoard() {
   if (player.value) {
+    const rankings = await gameService.fetchRankings();
+    const highestId = Math.max(...rankings.map((item: any) => item.id));
+    currentId.value = highestId + 1;
     const newRanking: Ranks = {
-      id: 4,
-      name: playerName.value[0],
+      id: currentId.value,
+      name: playerName.value.toString(),
       score: player.value?.credit,
     };
 
@@ -171,12 +177,6 @@ function goToLeaderBoard() {
     <dialog open class="alert alert-primary mt-3" role="alert">
       Vous avez gagné {{ currentEnemy?.credit }} CG... veuillez clickez sur
       terminer la mission pour continuer
-    </dialog>
-  </div>
-
-  <div v-if="showWinButDeadPopUp" class="modal-mask">
-    <dialog open class="alert alert-primary mt-3" role="alert">
-      Vous avez gagné {{ currentEnemy?.credit }} CG, mais vous avez perdu votre vaisseau. Réparer votre vaiseau pour continuer l'aventure
     </dialog>
   </div>
 

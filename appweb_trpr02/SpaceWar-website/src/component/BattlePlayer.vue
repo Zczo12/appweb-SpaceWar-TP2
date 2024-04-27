@@ -10,7 +10,6 @@ const props = defineProps<{
 const showPopup = ref<boolean>(false);
 
 const progressBarWidth = computed(() => {
-    console.log(props.player?.vitality)
   return `${props.player?.vitality}%`;
 });
 
