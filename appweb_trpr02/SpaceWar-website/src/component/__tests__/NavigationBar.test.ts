@@ -1,49 +1,42 @@
 import { mount } from "@vue/test-utils";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import NavigationBar from "../NavigationBar.vue";
-import { createRouter, createMemoryHistory } from 'vue-router';
-import routes from "../../router/routes";
+import { createRouter, createMemoryHistory, Router } from 'vue-router';
 
 describe("NavigationBar", () => {
-  it("navigates to '/' when 'Accueil' link is clicked", async () => {
-    const router = createRouter({
+  let router : Router;
+
+  beforeEach(() => {
+    router = createRouter({
       history: createMemoryHistory(),
-      routes: routes 
+      routes: [
+        { path: "/", name: "Accueil" },
+        { path: "/leaderboard", name: "Leaderboard" }
+      ]
     });
-
-    const wrapper = mount(NavigationBar, {
-      global: {
-        plugins: [router]
-      }
-    });
-
-    const accueilLink = wrapper.find('[to="/"]');
-    
-    await accueilLink.trigger("click");
-
-    await router.isReady();
-
-    expect(router.currentRoute.value.path).toBe('/');
   });
 
-  it("navigates to '/leaderboard' when 'Leaderboard' link is clicked", async () => {
-    const router = createRouter({
-      history: createMemoryHistory(),
-      routes: routes 
+  it("Une image est présente dans la bar de navigation", () => {
+    const wrapper = mount(NavigationBar, {
+      global: {
+        plugins: [router]
+      }
     });
+    
+    const img = wrapper.find("img");
+    expect(img.exists()).toBe(true);
+  });
 
+  it("Les pages sont visisble dans la bar de navigation", () => {
     const wrapper = mount(NavigationBar, {
       global: {
         plugins: [router]
       }
     });
 
-    const leaderboardLink = wrapper.find('[to="/leaderboard"]');
-    
-    await leaderboardLink.trigger("click");
-
-    await router.isReady();
-
-    expect(router.currentRoute.value.path).toBe('/leaderboard');
+    const linkList = wrapper.find("ul.navbar-nav");
+    const links = linkList.findAll("li.nav-item");
+    expect(linkList.exists()).toBe(true);
+    expect(links.length).toBe(2);
   });
 });

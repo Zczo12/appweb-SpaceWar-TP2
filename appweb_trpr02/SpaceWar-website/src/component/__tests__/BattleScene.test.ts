@@ -3,7 +3,6 @@ import { mount } from '@vue/test-utils'
 import BattleScene from '../BattleScene.vue'
 
 describe('BattleScene.vue', () => {
-
   it('la méthode attack est appelée correctement', async () => {
     const wrapper = mount(BattleScene)
     

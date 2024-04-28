@@ -4,7 +4,7 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: '/',
       name: 'Accueil',
-      component: () => import('../component/Accueil.vue'),
+      component: () => import('../views/Accueil.vue'),
       meta: {
         confirmNavigation: true
       }
@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: '/leaderboard',
       name: 'Leaderboard',
-      component: () => import('../component/Leaderboard.vue'),
+      component: () => import('../views/LeaderboardView.vue'),
       meta: {
         confirmNavigation: true
       }

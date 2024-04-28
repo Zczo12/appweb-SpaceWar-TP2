@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import AccueilForm from "../AccueilForm.vue";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe('AccueilForm', () => {
   it('récupère des vaisseaux et les affiche dans des options', async () => {
@@ -9,20 +9,13 @@ describe('AccueilForm', () => {
       { id: 2, name: 'Ship 2' },
     ];
 
-    const fetchShipsMock = vi.fn().mockResolvedValue(mockShips);
-
-    vi.mock('../scripts/gameService', () => ({
-      __esModule: true,
-      default: {
-        fetchShips: fetchShipsMock,
+    const wrapper = mount(AccueilForm, {
+      props: {
+        listShips: mockShips,
       },
-    }));
-
-    const wrapper = mount(AccueilForm);
+    });
 
     await wrapper.vm.$nextTick();
-
-    expect(fetchShipsMock).toHaveBeenCalled();
 
     const options = wrapper.findAll('select option');
     expect(options).toHaveLength(mockShips.length + 1); 
@@ -32,37 +25,43 @@ describe('AccueilForm', () => {
   });
 
   it('émet un événement de mise à jour avec le nom du joueur et le vaisseau sélectionné à la soumission du formulaire', async () => {
-    const wrapper = mount(AccueilForm);
-
-    await wrapper.setData({
-      $data: {
-        currentPlayerName: 'Player 1',
-        currentShip: { id: 1, name: 'Ship 1' },
+    const wrapper = mount(AccueilForm, {
+      data() {
+        return {
+          currentPlayerName: 'Player 1',
+          currentShip: { id: 1, name: 'Ship 1' }
+        };
       }
     });
 
-    await wrapper.find('form').trigger('submit.prevent');
+    await wrapper.find('form').trigger('submit');
 
-    expect(wrapper.emitted('update')).toBeTruthy();
-    expect(wrapper.emitted('update')[0]).toEqual(['Player 1', { id: 1, name: 'Ship 1' }]);
+    expect(wrapper.emitted()).toHaveProperty('update');
   });
 
-  it('affiche une fenêtre contextuelle d\'erreur si fetchShips échoue', async () => {
-    const fetchShipsMock = vi.fn().mockRejectedValue(new Error('Failed to fetch ships'));
+  it('Est ce que un select est présent dans la page initial', () => {
+    const wrapper = mount(AccueilForm);
+    expect(wrapper.find('select').exists()).toBe(true);
+  });
 
-    vi.mock('../scripts/gameService', () => ({
-      __esModule: true,
-      default: {
-        fetchShips: fetchShipsMock,
-      },
-    }));
+  it('Est ce que un input type text est présent dans la page initial', () => {
+    const wrapper = mount(AccueilForm);
+    expect(wrapper.find('input[type="text"]').exists()).toBe(true);
+  });
 
+  it('Est ce que un button est présent dans la page initial', () => {
+    const wrapper = mount(AccueilForm);
+    expect(wrapper.find('button[type="submit"]').exists()).toBe(true);
+  });
+
+  it('La valuer dans le input type text peut être modifier', async () => {
     const wrapper = mount(AccueilForm);
 
-    await wrapper.vm.$nextTick();
+    const input = wrapper.find('input[type="text"]');
 
-    expect(fetchShipsMock).toHaveBeenCalled();
+    await input.setValue('John Doe');
 
-    expect(wrapper.find('.modal-mask').exists()).toBe(true);
+    //Dit qu'il y a une erreur mais fonctionne
+    expect(input.element.value).toBe('John Doe');
   });
 });

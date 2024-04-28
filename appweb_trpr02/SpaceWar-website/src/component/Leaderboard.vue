@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { ref , onBeforeMount} from "vue";
-import gameService from "../scripts/gameService";
+import { ref } from "vue";
 import { Ranks } from "../scripts/gameService";
 
 const showPopup = ref<boolean>(false);
-const listRankings = ref<Ranks[] | null>([]);
 
-async function fetchRankings() {
-  try {
-    listRankings.value = await gameService.fetchRankings();
-    listRankings.value?.sort((a, b) => b.score - a.score);
-    } catch (error) {
-    showPopup.value = true;
-  }
-}
+const props = defineProps<{
+  listRankings: Ranks[] | null;
+}>()
 
-onBeforeMount(async () => {
-  await fetchRankings();
-})
 </script>
 
 <template>
@@ -26,7 +16,7 @@ onBeforeMount(async () => {
       <div class="col-md-8">
         <h2 class="text-center">Nos meilleurs pilotes</h2>
         <ul id="leaderboard" class="list-group">
-          <li v-for="rank in listRankings" :key="rank.id" class="list-group-item">
+          <li v-for="rank in props.listRankings" :key="rank.id" class="list-group-item">
             <div class="row">
               <div class="col-sm-6">{{ rank.name }}</div>
               <div class="col-sm-6 text-end">  {{ rank.score }} credits</div>
