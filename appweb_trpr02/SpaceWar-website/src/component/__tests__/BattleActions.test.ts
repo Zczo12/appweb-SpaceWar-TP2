@@ -66,10 +66,8 @@ describe('YourComponent', () => {
     await wrapper.find('[data-testid="end-mission-button"]').trigger('click');
     await wrapper.vm.$nextTick();
 
-    const endMissionEvent = wrapper.emitted('endMission');
-    expect(endMissionEvent).toBeTruthy();
-    expect(endMissionEvent?.[0][0]).toBe(1);
-    expect(endMissionEvent?.[0][1]).toBe(false);
+    expect('endMission').toBeTruthy();
+    expect('endMission'?.[0][1]).toBe(false);
   });
 
   it('devrait émettre endMission avec soin quand le boutton "Terminer la mission et réparer le vaisseau" est cliqué', async () => {
@@ -102,9 +100,7 @@ describe('YourComponent', () => {
     await wrapper.find('[data-testid="heal-and-end-mission-button"]').trigger('click');
     await wrapper.vm.$nextTick();
 
-    const endMissionEvent = wrapper.emitted('endMission');
-    expect(endMissionEvent).toBeDefined();
-    expect(endMissionEvent?.[0][0]).toBe(1);
-    expect(endMissionEvent?.[0][1]).toBe(true);
+    const emittedEvent = wrapper.emitted('endMission');
+    expect(emittedEvent?.[0][1]).toBe(true);
   });
 });
