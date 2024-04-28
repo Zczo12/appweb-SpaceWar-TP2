@@ -40,6 +40,7 @@ function setPlayerInfos() {
 async function fetchCharacters() {
   try {
     listCharacters.value = await gameService.fetchCharacters();
+    setPlayerInfos();
   } catch (error) {
     showPopup.value = true;
   }
@@ -57,7 +58,7 @@ function getRandomEnemy() {
   }
 }
 
-setPlayerInfos();
+//setPlayerInfos();
 fetchCharacters();
 
 async function handleNextMission(missionCounter: number, heal: boolean) {
