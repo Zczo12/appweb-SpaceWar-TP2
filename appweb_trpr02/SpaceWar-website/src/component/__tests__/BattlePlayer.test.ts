@@ -6,7 +6,7 @@ describe('PlayerStatus', () => {
   it('displays player information correctly', async () => {
     const player = {
       id: 1,
-      name: 'Player 1',
+      name: 'Garfield',
       credit: 200,
       vitality: 75
     };
@@ -14,15 +14,15 @@ describe('PlayerStatus', () => {
     const wrapper = mount(BattlePlayer, {
         props: {
           player: player,
-          shipName: 'Player Ship'
+          shipName: 'Car'
         }
       });
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.find('.header').text()).toBe('Player 1');
+    expect(wrapper.find('.header').text()).toBe('Garfield');
     expect(wrapper.find('h5').text()).toBe('Maitre - 200 CG');
-    expect(wrapper.find('.text-center').text()).toBe('Player Ship');
+    expect(wrapper.find('.text-center').text()).toBe('Car');
     expect(wrapper.find('.progress-bar').attributes('style')).toContain('width: 75%');
   });
 

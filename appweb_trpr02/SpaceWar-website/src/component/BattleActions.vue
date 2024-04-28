@@ -76,9 +76,9 @@ function healAndEndMission(): void {
         <div class="box rounded m-1" style="height: 200px; background-color: #3b3b3b;">
             <div class="header bg-primary rounded-top p-3">Actions</div>
             <div class="p-4">
-                <button @click="attack()" type="button" class="btn btn-primary">Combattre</button>
-                <button @click="endMission()" type="button" class="btn btn-primary">Terminer la mission</button>
-                <button @click="healAndEndMission()" type="button" class="btn btn-primary">Terminer la mission et réparer le vaisseau</button>                        
+                <button @click="attack()" type="button" class="btn btn-primary" data-testid="attack-button">Combattre</button>
+                <button @click="endMission()" type="button" class="btn btn-secondary" data-testid="end-mission-button">Terminer la mission</button>
+                <button @click="healAndEndMission()" type="button" class="btn btn-danger" data-testid="heal-and-end-mission-button">Terminer la mission et réparer le vaisseau</button>         
             </div>
         </div>
     </div>
