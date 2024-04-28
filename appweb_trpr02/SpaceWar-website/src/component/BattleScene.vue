@@ -48,12 +48,13 @@ async function fetchCharacters() {
 }
 
 function getRandomEnemy() {
-  if (listCharacters.value) {
+  if (listCharacters.value && player.value) {
     showWinPopup.value = false;
     let randomIndex: number = Math.floor(
       Math.random() * listCharacters.value.length
     );
     currentEnemy.value = listCharacters.value[randomIndex];
+    if (currentEnemy.value.ship.vitality <= 0 && player.value.vitality <= 0) return 
     if(currentEnemy.value.ship.vitality <=0) getRandomEnemy();
   }
 }
