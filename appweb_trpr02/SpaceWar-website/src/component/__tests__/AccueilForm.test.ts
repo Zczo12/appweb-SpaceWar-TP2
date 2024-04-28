@@ -2,7 +2,6 @@ import { mount } from "@vue/test-utils";
 import AccueilForm from "../AccueilForm.vue";
 import { describe, expect, it, vi } from "vitest";
 
-
 describe('AccueilForm', () => {
   it('fetches ships and displays them in select options', async () => {
     const mockShips = [
@@ -36,8 +35,10 @@ describe('AccueilForm', () => {
     const wrapper = mount(AccueilForm);
 
     await wrapper.setData({
-      currentPlayerName: 'Player 1',
-      currentShip: { id: 1, name: 'Ship 1' },
+      $data: {
+        currentPlayerName: 'Player 1',
+        currentShip: { id: 1, name: 'Ship 1' },
+      }
     });
 
     await wrapper.find('form').trigger('submit.prevent');

@@ -148,6 +148,7 @@ async function goToLeaderBoard() {
     router.push({ name: "Leaderboard" });
   }
 }
+
 </script>
 
 <template>
