@@ -3,22 +3,22 @@ import BattleActions from "../BattleActions.vue";
 import { describe, expect, it } from "vitest";
 
 describe('YourComponent', () => {
-  it('should emit battle event when attack button is clicked', async () => {
+  it('devrait émettre battle quand le boutton "Combattre" est cliqué', async () => {
     const player = {
       id: 1,
-      name: 'Player 1',
+      name: 'Garfield',
       credit: 200,
       vitality: 75
     };
 
     const enemy = {
       id: 1,
-      name: 'Enemy 1',
+      name: 'Nermal',
       experience: 2,
       credit: 100,
       ship: {
         id: 1,
-        name: 'Enemy Ship',
+        name: 'Courrier',
         vitality: 50
       }
     };
@@ -36,22 +36,22 @@ describe('YourComponent', () => {
     expect(wrapper.emitted('battle')).toBeTruthy();
   });
 
-  it('should emit endMission event with false when end mission button is clicked', async () => {
+  it('devrait émettre endMission sans soin quand le boutton "Terminer la mission" est cliqué', async () => {
     const player = {
       id: 1,
-      name: 'Player 1',
+      name: 'Garfield',
       credit: 200,
       vitality: 75
     };
 
     const enemy = {
       id: 1,
-      name: 'Enemy 1',
+      name: 'Nermal',
       experience: 2,
       credit: 100,
       ship: {
         id: 1,
-        name: 'Enemy Ship',
+        name: 'Courrier',
         vitality: 50
       }
     };
@@ -72,22 +72,22 @@ describe('YourComponent', () => {
     expect(endMissionEvent?.[0][1]).toBe(false);
   });
 
-  it('should emit endMission event with true when healAndEndMission button is clicked', async () => {
+  it('devrait émettre endMission avec soin quand le boutton "Terminer la mission et réparer le vaisseau" est cliqué', async () => {
     const player = {
       id: 1,
-      name: 'Player 1',
+      name: 'Garfield',
       credit: 200,
       vitality: 75
     };
 
     const enemy = {
       id: 1,
-      name: 'Enemy 1',
+      name: 'Nermal',
       experience: 2,
       credit: 100,
       ship: {
         id: 1,
-        name: 'Enemy Ship',
+        name: 'Courrier',
         vitality: 50
       }
     };

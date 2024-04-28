@@ -3,7 +3,7 @@ import AccueilForm from "../AccueilForm.vue";
 import { describe, expect, it, vi } from "vitest";
 
 describe('AccueilForm', () => {
-  it('fetches ships and displays them in select options', async () => {
+  it('récupère des vaisseaux et les affiche dans des options', async () => {
     const mockShips = [
       { id: 1, name: 'Ship 1' },
       { id: 2, name: 'Ship 2' },
@@ -31,7 +31,7 @@ describe('AccueilForm', () => {
     });
   });
 
-  it('emits update event with player name and selected ship on form submit', async () => {
+  it('émet un événement de mise à jour avec le nom du joueur et le vaisseau sélectionné à la soumission du formulaire', async () => {
     const wrapper = mount(AccueilForm);
 
     await wrapper.setData({
@@ -47,7 +47,7 @@ describe('AccueilForm', () => {
     expect(wrapper.emitted('update')[0]).toEqual(['Player 1', { id: 1, name: 'Ship 1' }]);
   });
 
-  it('displays error popup if fetchShips fails', async () => {
+  it('affiche une fenêtre contextuelle d\'erreur si fetchShips échoue', async () => {
     const fetchShipsMock = vi.fn().mockRejectedValue(new Error('Failed to fetch ships'));
 
     vi.mock('../scripts/gameService', () => ({

@@ -4,7 +4,7 @@ import BattleScene from '../BattleScene.vue'
 
 describe('BattleScene.vue', () => {
 
-  it('should emit attack event correctly', async () => {
+  it('la méthode attack est appelée correctement', async () => {
     const wrapper = mount(BattleScene)
     
     wrapper.vm.$emit('notifyAttack', 10, 20)
@@ -14,7 +14,7 @@ describe('BattleScene.vue', () => {
     expect(wrapper.emitted('attack')).toEqual([10, 20])
   })
   
-  it('should emit nextMission event with false when handleNextMission is called with false', () => {
+  it('devrait émettre un événement nextMission avec false lorsque handleNextMission est appelé avec false', () => {
     const wrapper = mount(BattleScene)
     
     wrapper.vm.$emit('handleNextMission', 1, false)
@@ -23,7 +23,7 @@ describe('BattleScene.vue', () => {
     expect(wrapper.emitted('nextMission')).toEqual([1, false])
   })
   
-  it('should emit nextMission event with true when handleNextMission is called with true', () => {
+  it('devrait émettre un événement nextMission avec true lorsque handleNextMission est appelé avec true', () => {
     const wrapper = mount(BattleScene)
     
     wrapper.vm.$emit('handleNextMission', 1, true)
@@ -32,7 +32,7 @@ describe('BattleScene.vue', () => {
     expect(wrapper.emitted('nextMission')).toEqual([1, true])
   })
   
-  it('should emit go to main menu event when goToMainMenu is called', () => {
+  it('devrait émettre un événement pour aller au menu principal lorsque la fonction goToMainMenu est appelée', () => {
     const wrapper = mount(BattleScene)
     
     wrapper.vm.$emit('goToMainMenu')
@@ -40,7 +40,7 @@ describe('BattleScene.vue', () => {
     expect(wrapper.emitted('goToMainMenu')).toBeTruthy()
   })
   
-  it('should emit go to leaderboard event when goToLeaderBoard is called', async () => {
+  it('devrait émettre un événement pour aller au tableau des scores lorsque la fonction goToLeaderboard est appelée', async () => {
     const wrapper = mount(BattleScene)
 
     wrapper.vm.$emit('goToLeaderBoard')
