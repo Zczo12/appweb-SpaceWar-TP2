@@ -114,7 +114,7 @@ async function notifyAttack(playerDamage: number, enemyDamage: number) {
       currentEnemy.value &&
       currentEnemy.value.ship.vitality !== undefined
     ) {
-      if (currentEnemy.value.ship.vitality < 0 && player.value.vitality < 0) {
+      if (currentEnemy.value.ship.vitality <= 0 && player.value.vitality <= 0) {
         showLosePopup.value = true;
         showWinPopup.value = false;
       }
