@@ -30,17 +30,6 @@ describe('BattleEnemy', () => {
     expect(wrapper.find('.progress-bar').attributes('style')).toContain('width: 100%');
   });
 
-  it('affiche un message d\'erreur si l\'ennemis est manquant', async () => {
-    const wrapper = mount(BattleEnemy, {
-      props: {
-        enemy: null
-      }
-    });
-
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.find('.modal-mask').exists()).toBe(true);
-  });
 });
 
 

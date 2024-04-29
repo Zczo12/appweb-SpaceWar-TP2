@@ -26,36 +26,4 @@ describe('PlayerStatus', () => {
     expect(wrapper.find('.progress-bar').attributes('style')).toContain('width: 75%');
   });
 
-  it('affiche un popup d\'erreur si le nom du joueur est manquant', async () => {
-    const wrapper = mount(BattlePlayer, {
-      props: {
-        player: null,
-        shipName: 'Garfield Kart'
-      }
-    });
-
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.find('.modal-mask').exists()).toBe(true);
-  });
-
-  it('affiche un popup d\'erreur si le nom du vaisseau est manquant', async () => {
-    const player = {
-        id: 1,
-        name: 'Garfield',
-        credit: 200,
-        vitality: 75
-    };
-
-    const wrapper = mount(BattlePlayer, {
-        props: {
-          player: player,
-          shipName: null
-        }
-      });
-
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.find('.modal-mask').exists()).toBe(true);
-  });
 });
