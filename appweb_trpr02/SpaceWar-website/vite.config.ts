@@ -6,6 +6,7 @@ import viteConfig from './vite.config'
 export default mergeConfig(
   viteConfig,
   defineConfig({
+    base:"/appweb-SpaceWar-Tp2",
     plugins: [vue()],
     test: {
       environment: 'jsdom',
