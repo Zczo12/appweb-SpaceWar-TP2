@@ -7,16 +7,16 @@ hero:
   text: "Revue du code de Jean-Thomas"
   actions:
   - theme: alt
-    text: Semaine 2
+    text: Semaine 3
 ---
 
-## **Page 404**
-Une page 404 n'existe pas encore.
+## **gameService**
+La centralisation des fetch et des interfaces dans gameService rend leur utilisation facile et efficace.
 
-## **Acceuil.vue**
-console.log non nettoyé dans le component Acceuil.vue.
+## **Division des vues**
+La division du code pour l'acceuil et le leaderboard est bien effectuée.
 
-## **Tests**
-Les tests concernant le formulaire d'Acceuil ne fonctionnent pas.
+## **Propretée du code et respect du DRY**
+Le code présent pour la navigation, l'acceuil et le leaderboard est propre et respecte les concept de DRY. Par la même occasion, l'utilisation de beforeEach dans les tests est efficace pour éviter la répétion.
 
 

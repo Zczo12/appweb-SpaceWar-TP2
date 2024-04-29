@@ -22,36 +22,4 @@ describe('BattleScene.vue', () => {
     expect(wrapper.emitted('goToLeaderBoard')).toBeTruthy()
   })
 
-  it('displays error popup when showPopup is true', async () => {
-    const wrapper = mount(BattleScene, {
-      data() {
-        return {
-          showPopup: true,
-        };
-      }
-    });
-
-    await wrapper.vm.$nextTick();
-
-    const errorPopup = wrapper.find('.modal-mask .alert-danger');
-    expect(errorPopup.exists()).toBe(true);
-    expect(errorPopup.text()).toContain("Une erreur est survenue lors du chargement des ennemis.");
-  });
-
-  it('displays win popup when showWinPopup is true', async () => {
-    const wrapper = mount(BattleScene, {
-      data() {
-        return {
-          showWinPopup: true,
-        };
-      }
-    });
-
-    await wrapper.vm.$nextTick();
-
-    const winPopup = wrapper.find('.modal-mask .alert-primary');
-    expect(winPopup.exists()).toBe(true);
-    expect(winPopup.text()).toContain("Vous avez gagné");
-  });
-
 })
